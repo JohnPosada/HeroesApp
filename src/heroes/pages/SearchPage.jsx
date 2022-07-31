@@ -6,7 +6,7 @@ import { getHeroesByName } from "../helpers";
 export const SearchPage = () => {
   const searchValue = localStorage.getItem("search");
   const { onInputChange, searchInput } = useForm({
-    searchInput: searchValue || "",
+    searchInput: !!searchValue ? searchValue : "",
   });
   const [heroes, setHeroes] = useState([]);
 
@@ -24,7 +24,7 @@ export const SearchPage = () => {
           <form>
             <input
               type="text"
-              value={searchValue}
+              value={searchInput}
               onChange={onInputChange}
               name="searchInput"
               placeholder="Search a superhero"
@@ -34,7 +34,7 @@ export const SearchPage = () => {
         </div>
         <div className="col-7">
           {heroes.length === 0 ? (
-            <div className="alert alert-danger">
+            <div aria-label="alert-danger" className="alert alert-danger">
               no hero with {searchInput} name
             </div>
           ) : (
